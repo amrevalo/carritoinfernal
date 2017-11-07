@@ -57,7 +57,7 @@ public class MappingBeanHelper {
             case "producto":
                 oBean = new ProductoSpecificBeanImplementation();
                 break;
-            case "lineadepedido":
+            case "linea_pedido":
                 oBean = new LineadepedidoSpecificBeanImplementation();
                 break;
             default:

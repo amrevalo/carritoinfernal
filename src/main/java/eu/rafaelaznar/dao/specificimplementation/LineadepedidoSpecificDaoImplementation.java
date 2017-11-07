@@ -35,7 +35,7 @@ import java.sql.Connection;
 public class LineadepedidoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
     public LineadepedidoSpecificDaoImplementation(Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
-        super("lineadepedido", oPooledConnection, oPuserBean_security, strWhere);
+        super("linea_pedido", oPooledConnection, oPuserBean_security, strWhere);
     }
 
 }
