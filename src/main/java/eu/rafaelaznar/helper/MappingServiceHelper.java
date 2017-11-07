@@ -29,6 +29,9 @@
 package eu.rafaelaznar.helper;
 
 import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.service.specificimplementation.LineadepedidoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.PedidoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.ProductoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +104,75 @@ public class MappingServiceHelper {
                         break;
                     case "getcount":
                         oReplyBean = oTipousuarioService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "producto":
+                ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oProductoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oProductoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oProductoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oProductoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oProductoService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "pedido":
+                PedidoSpecificServiceImplementation oPedidoService = new PedidoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oPedidoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oPedidoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oPedidoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oPedidoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oPedidoService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "lineadepedido":
+                LineadepedidoSpecificServiceImplementation oLineadepedidoService = new LineadepedidoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oLineadepedidoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oLineadepedidoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oLineadepedidoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oLineadepedidoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oLineadepedidoService.getCount();
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));

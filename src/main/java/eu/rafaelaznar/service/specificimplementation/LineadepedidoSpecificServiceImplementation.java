@@ -31,9 +31,9 @@ package eu.rafaelaznar.service.specificimplementation;
 import eu.rafaelaznar.service.genericimplementation.GenericTableService;
 import javax.servlet.http.HttpServletRequest;
 
-public class LineadepedidoSpecificServiceImplementation1 extends GenericTableService {
+public class LineadepedidoSpecificServiceImplementation extends GenericTableService {
 
-    public LineadepedidoSpecificServiceImplementation1(HttpServletRequest request) {
+    public LineadepedidoSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
 
