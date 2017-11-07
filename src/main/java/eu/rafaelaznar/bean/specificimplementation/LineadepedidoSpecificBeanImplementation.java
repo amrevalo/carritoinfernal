@@ -36,12 +36,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.dao.specificimplementation.PedidoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementation;
 import java.sql.Date;
 
 public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
-    private Integer cantidad;
+    private String cantidad;
     
     @Expose(serialize = false)
     private Integer id_pedido = 0;
@@ -71,15 +73,14 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.id = id;
     }
 
-    public Integer getCantidad() {
+    public String getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
 
-    
 
     public Integer getId_pedido() {
         return id_pedido;
@@ -129,7 +130,7 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     public String getValues() {
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += cantidad + ",";
+        strColumns += EncodingUtilHelper.quotate(cantidad) + ",";
         strColumns += id_pedido + ",";
         strColumns += id_producto;
         return strColumns;
@@ -138,7 +139,7 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     @Override
     public String toPairs() {
         String strPairs = "";
-        strPairs += "cantidad=" + cantidad + ",";
+        strPairs += "cantidad=" + EncodingUtilHelper.quotate(cantidad) + ",";
         strPairs += "id_pedido=" + id_pedido + ",";
         strPairs += "id_producto=" + id_producto;
         return strPairs;
@@ -147,7 +148,7 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
-        this.setCantidad(oResultSet.getInt("cantidad"));        
+        this.setCantidad(oResultSet.getString("cantidad"));        
         this.setId_pedido(oResultSet.getInt("id_pedido"));      
         this.setId_producto(oResultSet.getInt("id_producto"));
         if (expand > 0) {
