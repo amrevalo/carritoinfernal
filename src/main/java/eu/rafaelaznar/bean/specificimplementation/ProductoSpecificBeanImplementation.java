@@ -40,23 +40,21 @@ import java.sql.Date;
 
 public class ProductoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
+  
     @Expose
     private String codigo;
-    @Expose
-    private String descripcion;
     @Expose
     private int existencias;
     @Expose
     private double precio;
-    
-        
-    
+    @Expose
+    private String descripcion;
 
-    public ProductoSpecificBeanImplementation() {
+     public ProductoSpecificBeanImplementation() {
 
     }
-
-    public ProductoSpecificBeanImplementation(Integer id) {
+     
+      public ProductoSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
@@ -76,14 +74,6 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
         this.codigo = codigo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public int getExistencias() {
         return existencias;
     }
@@ -100,18 +90,22 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
         this.precio = precio;
     }
 
-    
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     
-
-    @Override
+     @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
         strColumns += "codigo,";
-        strColumns += "descripcion,";
         strColumns += "existencias,";
-        strColumns += "precio";       
+        strColumns += "precio,";
+        strColumns += "descripcion";
         return strColumns;
     }
 
@@ -120,9 +114,10 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
         String strColumns = "";
         strColumns += id + ",";
         strColumns += EncodingUtilHelper.quotate(codigo) + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
         strColumns += existencias + ",";
-        strColumns += precio;
+        strColumns += precio + ",";
+        strColumns += EncodingUtilHelper.quotate(descripcion);
+    
         return strColumns;
     }
 
@@ -130,22 +125,20 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
     public String toPairs() {
         String strPairs = "";
         strPairs += "codigo=" + EncodingUtilHelper.quotate(codigo) + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";       
         strPairs += "existencias=" + existencias + ",";
-        strPairs += "precio=" + precio;
+        strPairs += "precio=" + precio + ",";
+        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion);
         return strPairs;
     }
 
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
-        this.setCodigo(oResultSet.getString("codigo"));        
-        this.setDescripcion(oResultSet.getString("descripcion"));             
+        this.setCodigo(oResultSet.getString("codigo"));
         this.setExistencias(oResultSet.getInt("existencias"));
-        this.setPrecio(oResultSet.getDouble("precio"));       
+        this.setPrecio(oResultSet.getDouble("precio"));
+        this.setDescripcion(oResultSet.getString("descripcion"));
         return this;
     }
-
-
-
+    
 }

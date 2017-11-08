@@ -64,9 +64,10 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
                 oConnection = oPooledConnection.newConnection();
                 UsuarioSpecificDaoImplementation oDao = new UsuarioSpecificDaoImplementation(oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
                 oUsuarioBean = oDao.getFromLoginAndPass(oUsuarioBean);
-                ArrayList<CarritoBean> alcarritoBean = new ArrayList<CarritoBean>(); 
+                ArrayList<CarritoBean> alCarrito = new ArrayList<CarritoBean>(); 
                 HttpSession oSession = oRequest.getSession();
                 oSession.setAttribute("user", oUsuarioBean);
+                oSession.setAttribute("carrito", alCarrito);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(oUsuarioBean);
                 oReplyBean = new ReplyBean(200, strJson);
