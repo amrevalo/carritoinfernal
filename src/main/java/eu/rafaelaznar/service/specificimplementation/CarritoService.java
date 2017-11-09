@@ -115,19 +115,13 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
             ArrayList<CarritoBean> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
             int id = Integer.parseInt(oRequest.getParameter("id"));
             ReplyBean oReplyBean = null;
-
-            try {
-
+      
                 CarritoBean oCarrito = find(alCarrito, id);
                 alCarrito.remove(oCarrito);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(alCarrito);
                 oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            }
+           
             return oReplyBean;
         } else {
             return new ReplyBean(401, "Unauthorized operation");
@@ -139,17 +133,11 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
         if (this.checkPermission("list")) {
             ArrayList<CarritoBean> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
             ReplyBean oReplyBean = null;
-
-            try {
-
+         
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(alCarrito);
                 oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            }
+            
             return oReplyBean;
         } else {
             return new ReplyBean(401, "Unauthorized operation");
@@ -216,15 +204,11 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
         if (this.checkPermission("empty")) {
             ArrayList<CarritoBean> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
             ReplyBean oReplyBean = null;
-
             try {
-
                 alCarrito.clear();
-
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(alCarrito);
                 oReplyBean = new ReplyBean(200, strJson);
-
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
                 Log4jConfigurationHelper.errorLog(msg, ex);
