@@ -43,8 +43,11 @@ import java.sql.Date;
 public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
-    private String cantidad;
+    private int cantidad;
     
+    @Expose
+    private Boolean tiene_iva;
+          
     @Expose(serialize = false)
     private Integer id_pedido = 0;
     @Expose(deserialize = false)
@@ -73,11 +76,11 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.id = id;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -114,6 +117,15 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.obj_producto = obj_producto;
     }
 
+    public Boolean getTiene_iva() {
+        return tiene_iva;
+    }
+
+    public void setTiene_iva(Boolean tiene_iva) {
+        this.tiene_iva = tiene_iva;
+    }
+
+    
     
 
     @Override
@@ -122,6 +134,7 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         strColumns += "id,";
         strColumns += "cantidad,";        
         strColumns += "id_pedido,";
+        strColumns += "tiene_iva,";
         strColumns += "id_producto";
         return strColumns;
     }
@@ -130,8 +143,9 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     public String getValues() {
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += EncodingUtilHelper.quotate(cantidad) + ",";
+        strColumns += cantidad + ",";
         strColumns += id_pedido + ",";
+        strColumns += tiene_iva + ",";
         strColumns += id_producto;
         return strColumns;
     }
@@ -139,8 +153,9 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     @Override
     public String toPairs() {
         String strPairs = "";
-        strPairs += "cantidad=" + EncodingUtilHelper.quotate(cantidad) + ",";
+        strPairs += "cantidad=" + cantidad + ",";
         strPairs += "id_pedido=" + id_pedido + ",";
+        strPairs += "tiene_iva=" + tiene_iva + ",";
         strPairs += "id_producto=" + id_producto;
         return strPairs;
     }
@@ -148,8 +163,9 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
-        this.setCantidad(oResultSet.getString("cantidad"));        
-        this.setId_pedido(oResultSet.getInt("id_pedido"));      
+        this.setCantidad(oResultSet.getInt("cantidad"));        
+        this.setId_pedido(oResultSet.getInt("id_pedido"));
+        this.setTiene_iva(oResultSet.getBoolean("tiene_iva"));
         this.setId_producto(oResultSet.getInt("id_producto"));
         if (expand > 0) {
             PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation();

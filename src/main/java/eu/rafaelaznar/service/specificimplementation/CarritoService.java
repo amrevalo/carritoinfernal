@@ -151,10 +151,13 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
             ReplyBean oReplyBean = null;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
-            Date fecha = new Date(2017 / 10 / 27); //Date.valueOf(oRequest.getParameter("fecha"));
+            Date fecha = (Date) Calendar.getInstance().getTime(); 
+            
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
+                //transacciones
+                oConnection.setAutoCommit(false);
                 UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
                 Integer alCarritoSize = alCarrito.size();
                 PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation(oUsuarioBean.getId(), fecha);
@@ -167,12 +170,9 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
                     oProductoBean = alCarrito.get(i).getProducto();
                     Integer newCantidad = alCarrito.get(i).getCantidad();
                     LineadepedidoSpecificBeanImplementation oLineadepedidoBean = new LineadepedidoSpecificBeanImplementation();
-                    
-                    //pasar de int a string
-                    String sCantidad = String.valueOf(newCantidad);
-                  
-                    
-                    oLineadepedidoBean.setCantidad(sCantidad);
+                                 
+                   
+                    oLineadepedidoBean.setCantidad(newCantidad);
                     
                     oLineadepedidoBean.setId_pedido(oPedidoBean.getId());
                     oLineadepedidoBean.setId_producto(oProductoBean.getId());
@@ -181,7 +181,11 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
                     oProductoDao.set(oProductoBean);
                 }
                 alCarrito.clear();
+                //transacciones
+                oConnection.commit();
             } catch (Exception ex) {
+                //transacciones
+                oConnection.rollback();
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
                 Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
@@ -204,16 +208,12 @@ public class CarritoService implements TableServiceCarrito, ViewServiceCarrito {
         if (this.checkPermission("empty")) {
             ArrayList<CarritoBean> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
             ReplyBean oReplyBean = null;
-            try {
+            
                 alCarrito.clear();
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(alCarrito);
                 oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            }
+            
             return oReplyBean;
         } else {
             return new ReplyBean(401, "Unauthorized operation");
