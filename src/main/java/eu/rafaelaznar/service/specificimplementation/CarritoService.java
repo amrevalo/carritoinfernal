@@ -19,7 +19,7 @@ import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementati
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import static eu.rafaelaznar.helper.AppConfigurationHelper.getJsonMsgDepth;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

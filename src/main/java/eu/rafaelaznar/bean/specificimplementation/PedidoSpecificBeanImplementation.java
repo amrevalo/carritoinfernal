@@ -37,7 +37,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
-import java.sql.Date;
+import java.util.Date;
 
 public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
